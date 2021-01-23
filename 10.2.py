@@ -1,28 +1,33 @@
 class Stack:
 
-    def __init__(self):
-        self.items = []
+    def __init__(self, size = 10):
+        self.items = size*[None]
+        self.size = size
+        self.count = 0
 
     def __str__(self):                  # podglądamy stos
         return str(self.items)
 
     def is_empty(self):
-        return not self.items
+        return self.count == 0
 
     def is_full(self):                  # nigdy nie jest pełny
-        return False
+        return self.count==self.size
 
     def push(self, item):
-        if len(self.items) >= 10:
+        if self.is_full():
             raise Exception('The stack is full!')
-        else:
-            self.items.append(item)         # dodajemy na koniec
-
+        self.items[self.count] = item         # dodajemy na koniec
+        self.count+=1
+            
     def pop(self):                      # zwraca element
-        if self.is_empty == True:
+        if self.is_empty():
             raise Exception('The stack is empty!')
-        return self.items.pop()         # zabieram od końca
-
+        else:
+            self.count -=1
+            pop = self.items[self.count]
+            self.items[self.count] = None
+            return pop         # zabieram od końca
 
 
 import unittest
@@ -43,5 +48,7 @@ class TestStackMethods(unittest.TestCase):
     
 if __name__ == '__main__':
     unittest.main()
+
+
 
 

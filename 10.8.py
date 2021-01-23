@@ -3,13 +3,19 @@ class RandomQueue:
 
     def __init__(self):
         self.items = []
+        self.count = 0
 
     def insert(self, item):
         self.items.append(item)
+        self.count += 1
 
     def remove(self):   # zwraca losowy element
         x = random.randrange(0,len(self.items))
-        return self.items.pop(x)
+        temp = self.items[self.count-1]
+        self.items[self.count-1] = self.items[x]
+        self.items[x] = temp
+        self.count -= 1
+        return self.items.pop()
         
     def is_empty(self):
         return not self.items
